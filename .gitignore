@@ -8,7 +8,7 @@
 *.fsproj
 *.sln
 
-
+AssemblyInfo.fs
 # User-specific files
 *.rsuser
 *.suo
