@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Things that i dont like to see
+# Things that i dont like to see yeah
 *.config
 *.fsproj
 *.sln
