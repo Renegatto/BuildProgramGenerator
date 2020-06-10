@@ -34,13 +34,16 @@ type BoundBlock =
 type Environment = UnboundBlock list
 type Model       = BoundBlock   list
 
-type EnvironmentEvents = Environment seq
 
 type Instruction =
     |Move   of RelativeDirection
-    |Place  of RelativeDirection
+    |Place  of RelativeDirection * block_id:int
     |Dig    of RelativeDirection
-
+type TurtleState =
+    {
+        model       : Model
+        position    : Point
+    }
 type WorldState =
     {
         environment : Environment
@@ -50,6 +53,16 @@ type WorldState =
 type Generator      = Model -> Point -> Instruction list
 type Simulation     = WorldState -> Instruction list -> Environment seq -> WorldState 
 type Interpreter    = Instruction list -> Environment seq -> WorldState 
+// todo: type Interpreter    = Instruction list -> Environment state -> WorldState
+let interpret (instruction:Instruction) (state:WorldState): WorldState =
+    match instruction with
+    |Move   dir     -> move state dir
+    |Place  (dir,id)  -> place state dir id
+    |Dig    dir     -> dig state dir
+    |> fun result -> 
+        match result with
+        |Success state
+        |Fail (instruction,state)
 
 [<EntryPoint>]
 let main argv =
